@@ -45,7 +45,7 @@ const ProductDetail = () => {
           <div className="grid md:grid-cols-2 gap-12">
             <div>
               <img
-                src={product.images[0] || 'https://via.placeholder.com/500'}
+                src={product.images[0] || 'https://grocery-backend-nu-flame.vercel.app/'}
                 alt={product.name}
                 className="w-full rounded-lg"
               />
