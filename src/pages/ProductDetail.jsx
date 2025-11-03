@@ -38,7 +38,7 @@ const ProductDetail = () => {
   const hasDiscount = product.discountPrice && product.discountPrice < product.price;
 
   // ✅ Build correct image URL
-  const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+  const backendUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
   const imageUrl =
     product.images && product.images.length > 0
       ? product.images[0].startsWith("http")
