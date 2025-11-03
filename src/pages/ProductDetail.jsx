@@ -43,7 +43,7 @@ const ProductDetail = () => {
     product.images && product.images.length > 0
       ? product.images[0].startsWith("http")
         ? product.images[0]
-        : `https://grocery-backend-nu-flame.vercel.app/${product.images[0].replace("./", "")}`
+        : `https://grocery-backend-nu-flame.vercel.app/uploads/${product.images[0].replace("./", "")}`
       : "https://via.placeholder.com/400x400?text=No+Image";
 
   return (
