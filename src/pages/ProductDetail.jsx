@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
-import { CartContext } from "../context/CartContext";
-import api from "../utils/api";
-import { toast } from "react-toastify";
-import { FiShoppingCart, FiMinus, FiPlus } from "react-icons/fi";
+
+import React, { useState, useEffect, useContext } from 'react';
+import { useParams } from 'react-router-dom';
+import { CartContext } from '../context/CartContext';
+import api from '../utils/api';
+import { toast } from 'react-toastify';
+import { FiShoppingCart, FiMinus, FiPlus } from 'react-icons/fi';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -18,7 +19,7 @@ const ProductDetail = () => {
         const res = await api.get(`/products/${id}`);
         setProduct(res.data);
       } catch (error) {
-        console.error("Error fetching product:", error);
+        console.error('Error fetching product:', error);
       } finally {
         setLoading(false);
       }
@@ -37,49 +38,29 @@ const ProductDetail = () => {
   const price = product.discountPrice || product.price;
   const hasDiscount = product.discountPrice && product.discountPrice < product.price;
 
-  // ✅ Build correct image URL
-  const backendUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
-  const imageUrl =
-    product.images && product.images.length > 0
-      ? product.images[0].startsWith("http")
-        ? product.images[0]
-        : `https://grocery-backend-nu-flame.vercel.app/uploads/${product.images[0].replace("./", "")}`
-      : "https://via.placeholder.com/400x400?text=No+Image";
-
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="container mx-auto px-4">
         <div className="bg-white rounded-lg shadow-md p-8">
           <div className="grid md:grid-cols-2 gap-12">
-            {/* 🖼️ Product Image */}
             <div>
               <img
-                src={imageUrl}
+                src={product.images[0] || 'https://via.placeholder.com/500'}
                 alt={product.name}
-                className="w-full h-auto rounded-lg object-cover"
+                className="w-full rounded-lg"
               />
             </div>
 
-            {/* 📦 Product Info */}
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">
-                {product.name}
-              </h1>
-
+              <h1 className="text-3xl font-bold text-gray-900 mb-4">{product.name}</h1>
+              
               <div className="flex items-center gap-4 mb-6">
-                <span className="text-3xl font-bold text-primary">
-                  ₹{price}
-                </span>
+                <span className="text-3xl font-bold text-primary">₹{price}</span>
                 {hasDiscount && (
                   <>
-                    <span className="text-xl text-gray-500 line-through">
-                      ₹{product.price}
-                    </span>
+                    <span className="text-xl text-gray-500 line-through">₹{product.price}</span>
                     <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
-                      {Math.round(
-                        ((product.price - product.discountPrice) / product.price) * 100
-                      )}
-                      % OFF
+                      {Math.round(((product.price - product.discountPrice) / product.price) * 100)}% OFF
                     </span>
                   </>
                 )}
@@ -89,9 +70,7 @@ const ProductDetail = () => {
 
               <div className="mb-6">
                 <p className="text-sm text-gray-600">Unit: {product.unit}</p>
-                <p className="text-sm text-gray-600">
-                  Stock: {product.stock} available
-                </p>
+                <p className="text-sm text-gray-600">Stock: {product.stock} available</p>
               </div>
 
               <div className="flex items-center gap-4 mb-6">
@@ -105,9 +84,7 @@ const ProductDetail = () => {
                   </button>
                   <span className="px-6 py-2 border-x">{quantity}</span>
                   <button
-                    onClick={() =>
-                      setQuantity(Math.min(product.stock, quantity + 1))
-                    }
+                    onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
                     className="px-4 py-2 hover:bg-gray-100"
                   >
                     <FiPlus />
@@ -123,10 +100,7 @@ const ProductDetail = () => {
                   <FiShoppingCart size={20} /> Add to Cart
                 </button>
               ) : (
-                <button
-                  disabled
-                  className="w-full bg-gray-400 text-white py-4 rounded-lg font-semibold"
-                >
+                <button disabled className="w-full bg-gray-400 text-white py-4 rounded-lg font-semibold">
                   Out of Stock
                 </button>
               )}
