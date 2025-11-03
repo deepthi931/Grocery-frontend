@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
+
+
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -10,6 +13,7 @@ const Contact = () => {
     message: ''
   });
 
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -19,6 +23,7 @@ const Contact = () => {
     toast.success('Message sent successfully! We will get back to you soon.');
     setFormData({ name: '', email: '', subject: '', message: '' });
   };
+
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -104,6 +109,7 @@ const Contact = () => {
                 </div>
               </div>
             </div>
+
 
             <div className="bg-white rounded-lg shadow-md p-8">
               <div className="flex items-start gap-4">
